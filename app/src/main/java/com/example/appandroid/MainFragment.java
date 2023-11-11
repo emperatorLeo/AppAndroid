@@ -3,14 +3,14 @@ package com.example.appandroid;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.appandroid.databinding.ActivityMainBinding;
 import com.example.appandroid.ui.adapter.PhotoAdapter;
 import com.example.appandroid.ui.viewmodel.ViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class MainFragment extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
