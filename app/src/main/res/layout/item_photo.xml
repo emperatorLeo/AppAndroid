@@ -8,6 +8,7 @@
     android:layout_marginBottom="10dp">
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
@@ -17,12 +18,13 @@
         />
 
     <ImageView
+        android:id="@+id/imagePhoto"
         android:layout_width="60dp"
         android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:contentDescription="photo_image"
+        android:contentDescription="@string/photo_image"
         />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

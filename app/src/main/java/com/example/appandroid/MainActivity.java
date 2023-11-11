@@ -1,22 +1,14 @@
 package com.example.appandroid;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-
-import com.example.appandroid.data.entities.Photos;
-import com.example.appandroid.data.network.ApiClient;
-import com.example.appandroid.data.network.ApiPhoto;
 import com.example.appandroid.databinding.ActivityMainBinding;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.appandroid.ui.adapter.PhotoAdapter;
+import com.example.appandroid.ui.viewmodel.ViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,24 +18,16 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        ViewModel viewModel = new ViewModel();
+        viewModel.getPhotoList();
+        viewModel.listOfPhotos.observe(this, photos -> {
+            PhotoAdapter adapter = new PhotoAdapter(photos);
+            adapter.arrayList = photos;
+            binding.recyclerView.setAdapter(adapter);
+        });
+
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        Call<List<Photos>> call = ApiClient.getClient().create(ApiPhoto.class).getPhotos();
-        call.enqueue(new Callback<List<Photos>>() {
-            @Override
-            public void onResponse(Call<List<Photos>> call, Response<List<Photos>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    for (int i = 0; i < response.body().size(); i++) {
-                        Log.d("Leo", "lista: " + response.body().get(i));
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Photos>> call, Throwable t) {
-                Log.e("Leo", "message: " + t.getMessage());
-            }
-        });
     }
 }

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appandroid.data.entities.Photos;
-import com.example.appandroid.databinding.ActivityMainBinding;
+import com.example.appandroid.databinding.ItemPhotoBinding;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        ActivityMainBinding binding = ActivityMainBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        ItemPhotoBinding binding = ItemPhotoBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
     }
 
@@ -48,7 +48,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         TextView title;
         ImageView photo;
 
-        public ViewHolder(ActivityMainBinding binding) {
+        public ViewHolder(ItemPhotoBinding binding) {
             super(binding.getRoot());
             title = binding.title;
             photo = binding.imagePhoto;

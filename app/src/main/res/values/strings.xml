@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">App Android</string>
     <string name="app_android_title">App Android</string>
+    <string name="refresh_icon">refresh_icon</string>
+    <string name="photo_image">photo_image</string>
 </resources>
