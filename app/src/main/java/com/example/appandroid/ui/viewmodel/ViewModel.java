@@ -20,10 +20,13 @@ public class ViewModel extends androidx.lifecycle.ViewModel {
 
     private final MutableLiveData<ArrayList<Photos>> mutableListOfPhotos;
     public LiveData<ArrayList<Photos>> listOfPhotos;
+    private final ArrayList<Photos> photoList;
+
     private final ArrayList<Photos> savedList;
 
     public ViewModel(){
         mutableListOfPhotos = new MutableLiveData<>(new ArrayList<>());
+        photoList = new ArrayList<>();
         savedList = new ArrayList<>();
         listOfPhotos = mutableListOfPhotos;
     }
@@ -35,11 +38,11 @@ public class ViewModel extends androidx.lifecycle.ViewModel {
             public void onResponse(Call<ArrayList<Photos>> call, Response<ArrayList<Photos>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     for (int i = 0; i < 15; i++) {
-                        savedList.add(response.body().get(i));
+                        photoList.add(response.body().get(i));
                     }
-                    Log.d("Leo", "lista size: " + savedList.size());
                 }
-                mutableListOfPhotos.setValue(savedList);
+                mutableListOfPhotos.setValue(photoList);
+                savedList.addAll(photoList);
             }
 
             @Override
@@ -47,5 +50,11 @@ public class ViewModel extends androidx.lifecycle.ViewModel {
                 Log.e("ERROR GETTING PHOTOS", "message: " + t.getMessage());
             }
         });
+    }
+
+    public void refreshData(){
+        photoList.clear();
+        photoList.addAll(savedList);
+        mutableListOfPhotos.setValue(photoList);
     }
 }

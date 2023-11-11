@@ -21,13 +21,17 @@ public class MainActivity extends AppCompatActivity {
 
         ViewModel viewModel = new ViewModel();
         viewModel.getPhotoList();
+        PhotoAdapter adapter = new PhotoAdapter();
         viewModel.listOfPhotos.observe(this, photos -> {
-            PhotoAdapter adapter = new PhotoAdapter(photos);
+            adapter.setData(photos);
             adapter.arrayList = photos;
             binding.recyclerView.setAdapter(adapter);
+            binding.progressBar.setVisibility(View.INVISIBLE);
         });
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        binding.refreshButton.setOnClickListener(click -> viewModel.refreshData());
 
     }
 }

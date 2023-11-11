@@ -19,7 +19,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     public ArrayList<Photos> arrayList;
     private Context context;
 
-    public PhotoAdapter(ArrayList<Photos> arrayList) {
+    public void setData(ArrayList<Photos> arrayList){
         this.arrayList = arrayList;
     }
 
@@ -36,7 +36,10 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         Photos photo = arrayList.get(position);
         holder.title.setText(photo.getTitle());
         Glide.with(context).load(photo.getUrl()).into(holder.photo);
-
+        holder.deleteButton.setOnClickListener(it -> {
+            arrayList.remove(position);
+            notifyDataSetChanged();
+        });
     }
 
     @Override
@@ -47,11 +50,13 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         ImageView photo;
+        ImageView deleteButton;
 
         public ViewHolder(ItemPhotoBinding binding) {
             super(binding.getRoot());
             title = binding.title;
             photo = binding.imagePhoto;
+            deleteButton = binding.deleteButton;
         }
     }
 }
